@@ -13,6 +13,36 @@
 | v1      | /api/v1 | Beta   |
 
 Beta期間中は破壊的な変更が予告なく行われる可能性があります。
+## Type Definitions
+### Type User
+| Parameter Name | Parameter Type             | Parameter Description                                                  |
+| -------------- | -------------------------- | ---------------------------------------------------------------------- |
+| id             | String                     | VirtualCryptoにおけるユーザーのid                                      |
+| discord        | DiscordUser,null,undefined | discord上でアカウントを持たないアプリケーションではnullまたはundefined |
+### Type DiscordUser
+[DiscordのUser Structure](https://discord.com/developers/docs/resources/user#user-object)に従いますが、 `id`、`username`、`discriminator`、`avatar`、`bot`、`system`、`mfa_enabled`、`premium_type`、`public_flags`以外のフィールドが提供されることはありません。(セキュリティ上の理由で前述したフィールド以外のものを削除しています)
+### Type Curreny
+
+| Parameter Name |                  | Parameter Description                              |
+| -------------- | ---------------- | -------------------------------------------------- |
+| unit           | String           | 通貨単位                                           |
+| guild          | String           | 発行元guild                                        |
+| name           | String           | 通貨名                                             |
+| pool_amount    | String           | プールの残通貨量                                   |
+| total_amount   | String,undefined | 通貨流通量(全ユーザーの所有量を足し合わせたもの)。 |
+
+### Type Claim
+| Parameter Name | Parameter Type | Parameter Description                                      |
+| -------------- | -------------- | ---------------------------------------------------------- |
+| id             | String         | 請求id                                                     |
+| amount         | String         | 請求額                                                     |
+| claimant       | User           | 請求者                                                     |
+| payer          | User           | 被請求者                                                   |
+| currency       | Currency       | 請求されている通貨。`total_amount`フィールドは存在しない。 |
+| status         | String         | `pending`、`approved`、`canceled`のどれか                  |
+| created_at     | String         | 請求作成日                                                 |
+| updated_at     | String         | 請求更新日                                                 |
+
 ## Currencies
 通貨の情報を扱います。
 ## Get Currency By Query
