@@ -59,3 +59,32 @@ e.g.
   Host: vcrypto.sumidora.com
 ```
 
+
+## User Transcations
+ユーザーの支払いについて扱います。  
+認証が必要です。
+### Create User Transactions(Do Pay)
+`/users/@me/transactions`へ`POST`リクエストを行い、支払いを行います。
+
+#### Create User Transactions(Do Pay) Request
+以下のフィールドを持つJSONをBodyとして上記のURLへ`POST`リクエストを行ってください。
+
+| Parameter Name      | Parameter Description     |
+| ------------------- | ------------------------- |
+| unit                | 通貨単位                  |
+| receiver_discord_id | 受取人のdiscordにおけるid |
+| amount              | 支払額                    |
+
+#### Create User Transactions(Do Pay) Response
+成功時は`2xx`が返却されます。
+
+#### Create User Transactions(Do Pay) Error Response 
+##### Create User Transactions(Do Pay) Error Response Not Enough Amount
+支払おうとしたときに通貨が不足していた場合ステータスコード`400`で以下のレスポンスが返却されます。
+
+```json
+{
+  "error": "invalid_request",
+  "error_info": "not_enough_amount"
+}
+```
