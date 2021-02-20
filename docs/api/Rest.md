@@ -88,3 +88,65 @@ e.g.
   "error_info": "not_enough_amount"
 }
 ```
+
+
+## Claims
+請求の作成、確認、承認や拒否、キャンセルが可能です。
+
+### List Claims
+現在アクティブ(`status`が`pending`)な請求の一覧を取得します。
+#### List Claims Request
+`/users/@me/claims` へ`GET`を行ってください。
+#### List Claims Response
+[Claim](#type-claim)の配列が返却されます。
+
+e.g.
+```json
+[{
+  "amount": 100,
+  "claimant": {
+    "discord": {
+      "avatar": "9940018bc861cf7a1ca308228d4a7be8",
+      "discriminator": "2552",
+      "id": "408939071289688064",
+      "public_flags": 64,
+      "username": "tig"
+    },
+    "id": "1"
+  },
+  "created_at": "2021-02-07T05:46:15",
+  "currency": {
+    "guild": "494780225280802817",
+    "name": "nyan",
+    "pool_amount": "76",
+    "unit": "n"
+  },
+  "id": "1",
+  "payer": {
+    "discord": {
+      "avatar": "9940018bc861cf7a1ca308228d4a7be8",
+      "discriminator": "2552",
+      "id": "408939071289688064",
+      "public_flags": 64,
+      "username": "tig"
+    },
+    "id": "1"
+  },
+  "status": "pending",
+  "updated_at": "2021-02-07T05:46:15"
+},
+...
+]
+```
+
+### Get Cliam By Id
+請求idから請求を取得します。
+### Get Cliam By Id Request
+`/users/@me/claims/:id`へ`GET`を行ってください。
+
+#### Get Cliam By Id Response
+
+[Claim](#type-claim)が返却されます。
+
+#### Get Cliam By Id Error Response
+閲覧権限がない場合や存在しないidを指定した場合`404`が返却されます。
