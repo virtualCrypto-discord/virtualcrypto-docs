@@ -7,12 +7,15 @@
 `error_description`フィールドの内容、およびその存在の有無は仕様の範囲外です。
 
 
+---
+
 ## Versions
 | Version | Path    | Status |
 | ------- | ------- | ------ |
 | v1      | /api/v1 | Beta   |
-
 Beta期間中は破壊的な変更が予告なく行われる可能性があります。
+
+---
 ## Type Definitions
 ### Type User
 | Parameter Name | Parameter Type             | Parameter Description                                                  |
@@ -43,11 +46,13 @@ Beta期間中は破壊的な変更が予告なく行われる可能性があり�
 | created_at     | String         | 請求作成日                                                 |
 | updated_at     | String         | 請求更新日                                                 |
 
+---
 ## Currencies
 通貨の情報を扱います。
-## Get Currency By Query
+このエンドポイントは認証不要です。
+### Get Currency By Query
 `/currencies` に適当なクエリパラメータを付与し`GET`リクエストを行い、通貨に関する情報を取得します。
-### Get Currency By Query Request
+#### Get Currency By Query Request
 | Parameter Name | Parameter Description |
 | -------------- | --------------------- |
 | unit           | 通貨単位*1            |
@@ -61,15 +66,10 @@ e.g.
   Accept: application/json
   Host: vcrypto.sumidora.com
 ```
-### Get Currency By Query Response
-通貨が見つかった場合、ステータスコード`200`で以下のようなレスポンスが返却されます。
-| Parameter Name | Parameter Description                            |
-| -------------- | ------------------------------------------------ |
-| unit           | 通貨単位                                         |
-| guild          | 発行元guild                                      |
-| name           | 通貨名                                           |
-| pool_amount    | プールの残通貨量                                 |
-| total_amount   | 通貨流通量(全ユーザーの所有量を足し合わせたもの) |
+#### Get Currency By Query Response
+通貨が見つかった場合、ステータスコード`200`で[Currency](#type-curreny)がレスポンスがとして返却されます(ただし、`total_amount`が必ず存在します)。
+
+e.g.
 ```json
 {
   "guild": "494780225280802817",
@@ -79,7 +79,7 @@ e.g.
   "unit": "n"
 }
 ```
-### Get Currency By Query Error Response
+#### Get Currency By Query Error Response
 通貨が見つからなかった場合、ステータスコード`404`で以下のレスポンスが返却されます。
 ```json
 {
@@ -87,9 +87,9 @@ e.g.
   "error_description": "not_found"
 }
 ```
-## Get Currency By Id
+### Get Currency By Id
 `/currencies/:id`へ`GET`リクエストを行い通貨に関する情報を取得します。
-### Get Currency By Id Request
+#### Get Currency By Id Request
 e.g.
 ```
   GET /api/v1/currencie/1 HTTP/1.1
@@ -97,6 +97,12 @@ e.g.
   Host: vcrypto.sumidora.com
 ```
 
+#### Get Currency By Id Response
+Queryに同じ。
+#### Get Currency By Id Error Response
+Queryに同じ。
+
+---
 
 ## User Transcations
 ユーザーの支払いについて扱います。  
@@ -106,12 +112,11 @@ e.g.
 
 #### Create User Transactions(Do Pay) Request
 以下のフィールドを持つJSONをBodyとして上記のURLへ`POST`リクエストを行ってください。
-
-| Parameter Name      | Parameter Description     |
-| ------------------- | ------------------------- |
-| unit                | 通貨単位                  |
-| receiver_discord_id | 受取人のdiscordにおけるid |
-| amount              | 支払額                    |
+| Parameter Name      | Parameter Type | Parameter Description     |
+| ------------------- | -------------- | ------------------------- |
+| unit                | String         | 通貨単位                  |
+| receiver_discord_id | String         | 受取人のdiscordにおけるid |
+| amount              | String         | 支払額                    |
 
 #### Create User Transactions(Do Pay) Response
 成功時は`2xx`が返却されます。
