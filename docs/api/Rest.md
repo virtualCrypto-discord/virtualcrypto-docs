@@ -35,16 +35,16 @@ Beta期間中は破壊的な変更が予告なく行われる可能性があり�
 | total_amount   | String,undefined | 通貨流通量(全ユーザーの所有量を足し合わせたもの)。 |
 
 ### Type Claim
-| Parameter Name | Parameter Type | Parameter Description                                      |
-| -------------- | -------------- | ---------------------------------------------------------- |
-| id             | String         | 請求id                                                     |
-| amount         | String         | 請求額                                                     |
-| claimant       | User           | 請求者                                                     |
-| payer          | User           | 被請求者                                                   |
-| currency       | Currency       | 請求されている通貨。`total_amount`フィールドは存在しない。 |
-| status         | String         | `pending`、`approved`、`canceled`のどれか                  |
-| created_at     | String         | 請求作成日                                                 |
-| updated_at     | String         | 請求更新日                                                 |
+| Parameter Name | Parameter Type | Parameter Description                                             |
+| -------------- | -------------- | ----------------------------------------------------------------- |
+| id             | String         | 請求id                                                            |
+| amount         | String         | 請求額                                                            |
+| claimant       | User           | 請求者                                                            |
+| payer          | User           | 被請求者                                                          |
+| currency       | Currency       | 請求されている通貨。`total_amount`フィールドは存在しない。        |
+| status         | String         | 請求の状態。`pending`、`approved`、`canceled`、`denied`のいずれか |
+| created_at     | String         | 請求作成日                                                        |
+| updated_at     | String         | 請求更新日                                                        |
 
 ---
 ## Currencies
@@ -132,6 +132,7 @@ Queryに同じ。
 }
 ```
 
+---
 
 ## Claims
 請求の作成、確認、承認や拒否、キャンセルが可能です。
@@ -193,3 +194,30 @@ e.g.
 
 #### Get Cliam By Id Error Response
 閲覧権限がない場合や存在しないidを指定した場合`404`が返却されます。
+
+## Update Claim
+請求の承認や拒否とキャンセルが可能です。
+### Update Claims Request
+以下のフィールドを持つJSONをBodyとして上記のURLへ`POST`リクエストを行ってください。
+
+| Parameter Name | Parameter Type | Parameter Description                                             |
+| -------------- | -------------- | ----------------------------------------------------------------- |
+| status         | String         | 請求の状態。`pending`、`approved`、`canceled`、`denied`のいずれか |
+
+### Update Claims Response
+
+更新後の[Claim](#type-claim)が返却されます。
+
+### Update Claims Error Response
+すでに状態が`pending`以外に遷移している場合`404`が返却されます。
+
+#### Update Claims Error Response Not Enough Amount
+承認しようとしたとき、通貨が不足していた場合、ステータスコード`400`で以下のレスポンスが返却されます。
+
+```json
+{
+  "error": "invalid_request",
+  "error_info": "not_enough_amount"
+}
+```
+
