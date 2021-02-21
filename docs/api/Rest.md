@@ -197,21 +197,21 @@ e.g.
 
 ## Update Claim
 請求の承認や拒否とキャンセルが可能です。
-### Update Claims Request
+### Update Claim Request
 以下のフィールドを持つJSONをBodyとして上記のURLへ`POST`リクエストを行ってください。
 
 | Parameter Name | Parameter Type | Parameter Description                                             |
 | -------------- | -------------- | ----------------------------------------------------------------- |
 | status         | String         | 請求の状態。`pending`、`approved`、`canceled`、`denied`のいずれか |
 
-### Update Claims Response
+### Update Claim Response
 
 更新後の[Claim](#type-claim)が返却されます。
 
-### Update Claims Error Response
+### Update Claim Error Response
 すでに状態が`pending`以外に遷移している場合`404`が返却されます。
 
-#### Update Claims Error Response Not Enough Amount
+#### Update Claim Error Response Not Enough Amount
 承認しようとしたとき、通貨が不足していた場合、ステータスコード`400`で以下のレスポンスが返却されます。
 
 ```json
