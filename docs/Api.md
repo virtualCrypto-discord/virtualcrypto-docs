@@ -6,3 +6,4 @@ VirtualCrypto APIを用いてVirtual Cryptoと連携するBotやSlash Command、
 
 ## 目次
 - [認可/認証](https://github.com/virtualCrypto-discord/virtualcrypto-docs/blob/master/docs/api/Authz.md)
+- [REST API](https://github.com/virtualCrypto-discord/virtualcrypto-docs/blob/master/docs/api/Rest.md)
