@@ -222,3 +222,28 @@ e.g.
 }
 ```
 
+---
+
+## Balances
+### Get Balances
+#### Get Balances Request
+`/users/@me/balances`へ`GET`を行ってください。
+#### Get Balances Response
+
+| Parameter Name | Parameter Type | Parameter Description                        |
+| -------------- | -------------- | -------------------------------------------- |
+| amount         | String         | 残高。                                       |
+| currency       | Currency       | 通貨。`total_amount`フィールドは存在しない。 |
+
+e.g.
+```json
+[{
+  "amount": "76",
+  "currency": {
+    "guild": "494780225280802817",
+    "name": "nyan",
+    "pool_amount": "0",
+    "unit": "n"
+  }
+},...]
+```
