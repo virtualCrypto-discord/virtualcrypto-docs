@@ -48,7 +48,7 @@ VirtualCyprtoではAuthorization Code GrantとClient Credentials Grantのみを�
 ### Authorization Code Grant
 
 #### Authorization Code Grant Authorization
-#### Authorization Code Grant Authorization Request
+##### Authorization Code Grant Authorization Request
 以下のパラメータを`application/x-www-form-urlencoded`を用いてエンコードし、Authorization Endpointへユーザーエージェントをリダイレクトさせる。
 | Parameter Name | Parameter Type   | Parameter Description                                                                 |
 | -------------- | ---------------- | ------------------------------------------------------------------------------------- |
