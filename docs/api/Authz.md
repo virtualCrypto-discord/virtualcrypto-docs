@@ -233,7 +233,7 @@ e.g.
 | client_id                          | String         | クライアントの識別子。UUID v4。                                                                                |
 | client_secret                      | String         | 32byteの乱数をpaddingなしでbase64でエンコードしたもの。                                                        |
 | client_secret_expires_at           | Number         | `client_secret` が期限切れになる時間。期限切れにならないため`0`。                                              |
-| grant_types                        | String[]       | `authorization_code`、`refresh_token`、`client_credentials`から選択                                            |
+| grant_types                        | String[]       | 要素は`authorization_code`、`refresh_token`、`client_credentials`のいずれか(重複なし)|
 | application_type                   | String         | `native`、`web`から選択、デフォルトは`web`                                                                     |
 | response_types                     | String[]       | `code`のみサポート                                                                                             |
 | client_name                        | String,null    | アプリケーションの名前                                                                                         |
