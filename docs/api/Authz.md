@@ -43,6 +43,7 @@ VirtualCyprtoではAuthorization Code GrantとClient Credentials Grantのみを�
 | openid          | OpenID Connect Core 1.0 incorporating errata set 1                                                |
 | oauth2.register | use for [OpenID Connect Dynamic Client Registration](#openid-connect-dynamic-client-registration) |
 | vc.pay          | allow make payments.                                                                              |
+| vc.claim        | allow make claims.                                                                                |
 
 ### Authorization Code Grant
 
