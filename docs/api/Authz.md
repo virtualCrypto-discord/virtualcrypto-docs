@@ -57,13 +57,13 @@ VirtualCyprtoではAuthorization Code GrantとClient Credentials Grantのみを�
 | redirect_uri   | String           | 事前に登録済みである必要がある。                                                      |
 | scope          | String           | [Scopes](#scopes)の中からいくつかを選択しなければならない。値はスペースで区切られる。 |
 | state          | String,undefined | CSRF対策のために用いられるべきである。                                                |
-#### Authorization Code Grant Authorization Response
+##### Authorization Code Grant Authorization Response
 認証/認可の完了後、VirtualCryptoは以下のパラメータを付与し`redirect_uri`へユーザーをリダイレクトさせる。
 | Parameter Name | Parameter Type   | Parameter Description                                                        |
 | -------------- | ---------------- | ---------------------------------------------------------------------------- |
 | code           | String           | 認可コード                                                                   |
 | state          | String,undefined | stateがAuthorization Requestの際に渡されていればその値がそのまま返却される。 |
-#### Authorization Code Grant Authorization Error Response
+##### Authorization Code Grant Authorization Error Response
 失敗時はリダイレクト可能な場合は、以下のパラメータを付与し、`redirect_uri`へユーザーをリダイレクトさせる。
 | Parameter Name    | Parameter Type   | Parameter Description                                                        |
 | ----------------- | ---------------- | ---------------------------------------------------------------------------- |
