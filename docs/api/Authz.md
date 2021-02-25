@@ -11,11 +11,11 @@ VirtualCryptoが発行するAccess Tokenには三種類あります。
   - 人間のユーザーに紐づくトークンです。
   - webダッシュボードで使用されています。
   - 将来的にPersonal Access Tokenの仕組みを作成するかもしれません。
-- app.user
+- app
   - これはアプリケーションに対して発行されるGuildに紐付かないトークンです。
   - 支払いや所持通貨量の確認ができます。
   - 主にclient credentials flowを用いて入手します。
-- app.guild
+- guild
   - これはアプリケーションに対して発行されるGuildが紐付けされたトークンです。
   - giveが可能です。
   - 主にcode flowを用いて入手します。
