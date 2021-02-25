@@ -121,7 +121,7 @@ e.g.
 | client_secret             | String         | 32byteの乱数をpaddingなしでbase64でエンコードしたもの。           |
 | registration_access_token | String         | kindが`app.user`で`oauth2.register`スコープを持ったトークン。     |
 | registration_client_uri   | String         | Client Configuration EndpointのURL。                              |
-| client_secret_expires_at  | Number         | `client_secret` が期限切れになる時間。期限切れにならないため`0`。 |
+| client_secret_expires_at  | Number         | `client_secret` が期限切れになる日時(UNIX time)。期限切れにならないため`0`。 |
 
 e.g.
 ```
