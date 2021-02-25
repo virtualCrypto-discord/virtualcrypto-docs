@@ -24,7 +24,7 @@ VirtualCryptoが発行するAccess Tokenには三種類あります。
 Access Tokenの有効期限はセキュリティ上短く設定されています。
 しかし、それでは毎回、認可をユーザーには求めなければならず不便です。
 そこでRefresh Tokenを使用します。
-Refresh TokenはトークンエンドポイントにてAccess Tokenと引き換えて使用します。
+Refresh TokenはトークンエンドポイントにてAccess Tokenと引き換えることができます。
 
 ## OAuth2/OpenID Connect
 [OAuth2](https://tools.ietf.org/html/rfc6749)([和訳](https://openid-foundation-japan.github.io/rfc6749.ja.html))/[OpenID Connect](https://openid.net/specs/openid-connect-core-1_0.html)([和訳](https://openid-foundation-japan.github.io/openid-connect-core-1_0.ja.html))は認可/認証に関わる、現在、広範に用いられる標準仕様の一つです。
