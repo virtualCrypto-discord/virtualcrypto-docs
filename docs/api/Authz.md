@@ -81,10 +81,10 @@ Authorization Endpointへユーザーエージェントをリダイレクトさ�
 認証情報を付加した上でToken Endpointへ、`POST`リクエストを行います。
 Content Typeは`application/x-www-form-urlencoded`を用いてください。  
 認証は`client_id`と`client_secret`を用いたBasic認証で行います。
-| Parameter Name | Parameter Type | Parameter Description                                                                 |
-| -------------- | -------------- | ------------------------------------------------------------------------------------- |
-| grant_type     | String         | `client_credentials`でなければならない。                                              |
-| scope          | String         | [Scopes](#scopes)の中からいくつかを選択しなければならない。値はスペースで区切られる。 (これはVirtualCryptoの拡張です。)|
+| Parameter Name | Parameter Type | Parameter Description                                                                                                   |
+| -------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| grant_type     | String         | `client_credentials`でなければならない。                                                                                |
+| scope          | String         | [Scopes](#scopes)の中からいくつかを選択しなければならない。値はスペースで区切られる。 (これはVirtualCryptoの拡張です。) |
 
 e.g.
 ```http
@@ -154,9 +154,9 @@ content-type: application/json
 以下のパラメータを`application/x-www-form-urlencoded`としてエンコードしたものをリクエストボディとし、Token Revocation Endpointへ、`POST`リクエストを行います。
 | Parameter Name | Parameter Type | Parameter Description                        |
 | -------------- | -------------- | -------------------------------------------- |
-| jti          | String         | トークンのid。 |
-|kind| String         | トークンのkind(`user`、`app`または`guild`)。 |
-|typ|トークンの種類(`access`また`refresh`)|
+| jti            | String         | トークンのid。                               |
+| kind           | String         | トークンのkind(`user`、`app`または`guild`)。 |
+| typ            | String         | トークンの種類(`access`また`refresh`)        |
 
 e.g.
 ```http
