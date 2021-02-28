@@ -31,12 +31,13 @@ Refresh TokenはトークンエンドポイントにてAccess Tokenと引き換�
 VirtualCyprtoではAuthorization Code GrantとClient Credentials Grantのみをサポートしています。
 
 ### URLs
-| Title                         | URL                 | Related Specification                                                                    |
-| ----------------------------- | ------------------- | ---------------------------------------------------------------------------------------- |
-| Authorization Endpoint        | /oauth2/authorize   | The OAuth 2.0 Authorization Framework/OpenID Connect Core 1.0 incorporating errata set 1 |
-| Token Endpoint                | /oauth2/token       | The OAuth 2.0 Authorization Framework/OpenID Connect Core 1.0 incorporating errata set 1 |
-| Client Registration Endpoint  | /oauth2/clients     | OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 1                |
-| Client Configuration Endpoint | /oauth2/clients/@me | OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 1                |
+| Title                         | URL                  | Related Specification                                                                    |
+| ----------------------------- | -------------------- | ---------------------------------------------------------------------------------------- |
+| Authorization Endpoint        | /oauth2/authorize    | The OAuth 2.0 Authorization Framework/OpenID Connect Core 1.0 incorporating errata set 1 |
+| Token Endpoint                | /oauth2/token        | The OAuth 2.0 Authorization Framework/OpenID Connect Core 1.0 incorporating errata set 1 |
+| Token Revocation Endpoint     | /oauth2/token/revoke | OAuth 2.0 Token Revocation                                                               |
+| Client Registration Endpoint  | /oauth2/clients      | OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 1                |
+| Client Configuration Endpoint | /oauth2/clients/@me  | OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 1                |
 ### Scopes
 | Name            | Description                                                                                       |
 | --------------- | ------------------------------------------------------------------------------------------------- |
@@ -76,18 +77,18 @@ Authorization Endpointへユーザーエージェントをリダイレクトさ�
 アプリケーションのリソースにアクセスする場合やすでに認可を得ているリソースへのアクセストークンを取得する場合に使用します。
 
 #### Client Credentials Grant Request
-Token Endpointへ認証情報を付加した上で以下のパラメータを付与し`POST`リクエストを行います。
+以下のパラメータを`application/x-www-form-urlencoded`としてエンコードしたものをリクエストボディとし、
+認証情報を付加した上でToken Endpointへ、`POST`リクエストを行います。
 Content Typeは`application/x-www-form-urlencoded`を用いてください。  
 認証は`client_id`と`client_secret`を用いたBasic認証で行います。
 | Parameter Name | Parameter Type | Parameter Description                                                                 |
 | -------------- | -------------- | ------------------------------------------------------------------------------------- |
 | grant_type     | String         | `client_credentials`でなければならない。                                              |
-| scope          | String         | [Scopes](#scopes)の中からいくつかを選択しなければならない。値はスペースで区切られる。 |
+| scope          | String         | [Scopes](#scopes)の中からいくつかを選択しなければならない。値はスペースで区切られる。 (これはVirtualCryptoの拡張です。)|
 
 e.g.
 ```http
 POST https://vcrypto.sumidora.com/oauth2/token
-User-Agent: vscode-restclient
 Content-Type: application/x-www-form-urlencoded
 Authorization: Basic MGU4YjlkNmYtNzUyYS00ZjVlLWFjNzItMzk4NmFlZmY4YWYwOnRVd1E2MGhuUW9XcUFBZExIX3VUR2l6X3B5dFE1b1o4d05NdnJfeTVLNGc=
 
@@ -120,6 +121,59 @@ content-type: application/json
 | -------------- | -------------- | --------------------- |
 | error          | String         | エラーコード。        |
 
+
+### Token Revocation
+#### Token Revocation With Token
+##### Token Revocation With Token Request
+以下のパラメータを`application/x-www-form-urlencoded`としてエンコードしたものをリクエストボディとし、Token Revocation Endpointへ、`POST`リクエストを行います。
+| Parameter Name | Parameter Type | Parameter Description                        |
+| -------------- | -------------- | -------------------------------------------- |
+| token          | String         | アクセストークンまたはリフレッシュトークン。 |
+
+e.g.
+```http
+POST https://vcryto.sumidora.com/oauth2/token/revoke
+Content-Type: application/x-www-form-urlencoded
+
+token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ2aXJ0dWFsQ3J5cHRvIiwiZXhwIjoxNjE0NTAxNTUzLCJpYXQiOjE2MTQ0OTc5NTMsImlzcyI6InZpcnR1YWxDcnlwdG8iLCJqdGkiOiJlZWJmZWM4NS01M2M1LTQ2ZmYtOGVmYy01NzIyYWFhY2VhMDAiLCJraW5kIjoidXNlciIsIm5iZiI6MTYxNDQ5Nzk1Miwic2NvcGVzIjpbIm9hdXRoMi5yZWdpc3RlciIsInZjLnBheSIsInZjLmNsYWltIl0sInN1YiI6IjEiLCJ0eXAiOiJhY2Nlc3MifQ.FDjMsZlJnEUdKmTbccPNXNm2lY7BjRTsuaOhd4mJB2Sk3FnKwfWll7nGSUT23Ja81dkdw0SCWGAloI0jK__NLw
+```
+##### Token Revocation With Token Response
+常にステータスコード`200`が返却されます。
+レスポンスボディの内容は無視しなければなりません。
+e.g.
+```http
+HTTP/1.1 200 OK
+content-type: application/json
+
+{}
+```
+#### Token Revocation With Value
+トークンのclaimの一部を用いてトークンを取り消すことができます(これはVirtualCryptoの拡張です。)。
+##### Token Revocation With Value Request
+以下のパラメータを`application/x-www-form-urlencoded`としてエンコードしたものをリクエストボディとし、Token Revocation Endpointへ、`POST`リクエストを行います。
+| Parameter Name | Parameter Type | Parameter Description                        |
+| -------------- | -------------- | -------------------------------------------- |
+| jti          | String         | トークンのid。 |
+|kind| String         | トークンのkind(`user`、`app`または`guild`)。 |
+|typ|トークンの種類(`access`また`refresh`)|
+
+e.g.
+```http
+POST https://vcryto.sumidora.com/oauth2/token/revoke
+Content-Type: application/x-www-form-urlencoded
+
+jti=51b5c295-3624-4ef4-9e47-0dac6a9465f5&kind=user&typ=access
+```
+##### Token Revocation With Value Response
+常にステータスコード`200`が返却されます。
+レスポンスボディの内容は無視しなければなりません。
+e.g.
+```http
+HTTP/1.1 200 OK
+content-type: application/json
+
+{}
+```
 ### OpenID Connect Dynamic Client Registration
 VirtualCryptoは[OpenID Connect Dynamic Client Registration](https://openid.net/specs/openid-connect-registration-1_0.html)を実装していますが、
 この登録にはkindがuserのAccess Tokenが必要です。
