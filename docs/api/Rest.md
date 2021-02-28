@@ -63,7 +63,7 @@ Beta期間中は破壊的な変更が予告なく行われる可能性があり�
 *1: いずれかから1つのみを指定する必要があります。  
 
 e.g.
-```
+```http
   GET /api/v1/currencies?unit=n HTTP/1.1
   Accept: application/json
   Host: vcrypto.sumidora.com
@@ -93,7 +93,7 @@ e.g.
 `/currencies/:id`へ`GET`リクエストを行い通貨に関する情報を取得します。
 #### Get Currency By Id Request
 e.g.
-```
+```http
   GET /api/v1/currencie/1 HTTP/1.1
   Accept: application/json
   Host: vcrypto.sumidora.com

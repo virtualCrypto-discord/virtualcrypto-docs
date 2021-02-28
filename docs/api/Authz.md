@@ -88,7 +88,7 @@ Content Typeは`application/x-www-form-urlencoded`を用いてください。
 
 e.g.
 ```http
-POST https://vcrypto.sumidora.com/oauth2/token
+POST https://vcrypto.sumidora.com/oauth2/token HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 Authorization: Basic MGU4YjlkNmYtNzUyYS00ZjVlLWFjNzItMzk4NmFlZmY4YWYwOnRVd1E2MGhuUW9XcUFBZExIX3VUR2l6X3B5dFE1b1o4d05NdnJfeTVLNGc=
 
@@ -132,7 +132,7 @@ content-type: application/json
 
 e.g.
 ```http
-POST https://vcryto.sumidora.com/oauth2/token/revoke
+POST https://vcryto.sumidora.com/oauth2/token/revoke HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 
 token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ2aXJ0dWFsQ3J5cHRvIiwiZXhwIjoxNjE0NTAxNTUzLCJpYXQiOjE2MTQ0OTc5NTMsImlzcyI6InZpcnR1YWxDcnlwdG8iLCJqdGkiOiJlZWJmZWM4NS01M2M1LTQ2ZmYtOGVmYy01NzIyYWFhY2VhMDAiLCJraW5kIjoidXNlciIsIm5iZiI6MTYxNDQ5Nzk1Miwic2NvcGVzIjpbIm9hdXRoMi5yZWdpc3RlciIsInZjLnBheSIsInZjLmNsYWltIl0sInN1YiI6IjEiLCJ0eXAiOiJhY2Nlc3MifQ.FDjMsZlJnEUdKmTbccPNXNm2lY7BjRTsuaOhd4mJB2Sk3FnKwfWll7nGSUT23Ja81dkdw0SCWGAloI0jK__NLw
@@ -160,7 +160,7 @@ content-type: application/json
 
 e.g.
 ```http
-POST https://vcryto.sumidora.com/oauth2/token/revoke
+POST https://vcryto.sumidora.com/oauth2/token/revoke HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 
 jti=51b5c295-3624-4ef4-9e47-0dac6a9465f5&kind=user&typ=access
@@ -200,7 +200,7 @@ Parameterは以下のテーブルに示すとおりです。
 | discord_support_server_invite_slug | String,null,undefined | `https://discord.gg/<invite_slug>`                                                                             |
 
 e.g.
-```
+```http
   POST /oauth2/clients HTTP/1.1
   Content-Type: application/json
   Accept: application/json
@@ -230,7 +230,7 @@ e.g.
 | client_secret_expires_at  | Number         | `client_secret` が期限切れになる日時(UNIX time)。期限切れにならないため`0`。 |
 
 e.g.
-```
+```http
   HTTP/1.1 201 Created
   Content-Type: application/json
 
@@ -253,7 +253,7 @@ e.g.
 | error_description | String,undefined | 人間向けの追加のメッセージ。                                                                     |
 
 e.g.  
-```
+```http
   HTTP/1.1 400 Bad Request
   Content-Type: application/json
 
@@ -283,7 +283,7 @@ Bodyには以下のパラメータを持つJSONを指定してください。
 | discord_support_server_invite_slug | String,null,undefined | `https://discord.gg/<invite_slug>`                                                                             |
 
 e.g.
-```
+```http
   PATCH /oauth2/clients/@me HTTP/1.1
   Content-Type: application/json
   Accept: application/json
@@ -298,7 +298,7 @@ e.g.
 成功時は2xxが返却されます。
 
 e.g.
-```
+```http
   HTTP/1.1 204 No Content
 ```
 
@@ -310,7 +310,7 @@ e.g.
 | error_description | String,undefined | 人間向けの追加のメッセージ。                                                                     |
 
 e.g.
-```
+```http
   HTTP/1.1 400 Bad Request
   Content-Type: application/json
 
@@ -325,7 +325,7 @@ Client Configuration Endpointに`GET`でアクセスすることにより、ク�
 ##### Client Information Request
 kindが`app.user`かつ、`oauth2.register`スコープをもつアクセストークンを認証に使用してください。
 e.g.
-```
+```http
   GET /oauth2/clients/@me HTTP/1.1
   Accept: application/json
   Host: vcrypto.sumidora.com
@@ -351,7 +351,7 @@ e.g.
 | user_id                            | String         | VirtualCryptoにおけるアプリケーションのユーザーのid                                                            |
 
 e.g.
-```
+```http
   HTTP/1.1 200 OK
   Content-Type: application/json
 
@@ -382,7 +382,7 @@ kindが`user`かつ、`oauth2.register`スコープをもつアクセストー�
 `GET /oauth2/clients/@me`のレスポンスの配列が返却されます。
 
 e.g.
-```
+```http
   GET /oauth2/clients?user=@me HTTP/1.1
   Accept: application/json
   Host: vcrypto.sumidora.com
