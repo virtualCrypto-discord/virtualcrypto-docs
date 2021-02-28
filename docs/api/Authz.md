@@ -48,8 +48,9 @@ VirtualCyprtoではAuthorization Code GrantとClient Credentials Grantのみを�
 ### Authorization Code Grant
 
 #### Authorization Code Grant Authorization
-##### Authorization Code Grant Authorization Request
-以下のパラメータを`application/x-www-form-urlencoded`を用いてエンコードし、Authorization Endpointへユーザーエージェントをリダイレクトさせる。
+#### Authorization Code Grant Authorization Request
+以下のパラメータを`application/x-www-form-urlencoded`を用いてエンコードしたものをクエリパラメータとして付加し、
+Authorization Endpointへユーザーエージェントをリダイレクトさせてください。
 | Parameter Name | Parameter Type   | Parameter Description                                                                 |
 | -------------- | ---------------- | ------------------------------------------------------------------------------------- |
 | client_id      | String           | クライアントの識別子                                                                  |
@@ -57,19 +58,42 @@ VirtualCyprtoではAuthorization Code GrantとClient Credentials Grantのみを�
 | redirect_uri   | String           | 事前に登録済みである必要がある。                                                      |
 | scope          | String           | [Scopes](#scopes)の中からいくつかを選択しなければならない。値はスペースで区切られる。 |
 | state          | String,undefined | CSRF対策のために用いられるべきである。                                                |
-##### Authorization Code Grant Authorization Response
-認証/認可の完了後、VirtualCryptoは以下のパラメータを付与し`redirect_uri`へユーザーをリダイレクトさせる。
+#### Authorization Code Grant Authorization Response
+認証/認可の完了後、VirtualCryptoは以下のパラメータを付与し`redirect_uri`へユーザーエージェントをリダイレクトさせます。
 | Parameter Name | Parameter Type   | Parameter Description                                                        |
 | -------------- | ---------------- | ---------------------------------------------------------------------------- |
 | code           | String           | 認可コード                                                                   |
 | state          | String,undefined | stateがAuthorization Requestの際に渡されていればその値がそのまま返却される。 |
-##### Authorization Code Grant Authorization Error Response
-失敗時はリダイレクト可能な場合は、以下のパラメータを付与し、`redirect_uri`へユーザーをリダイレクトさせる。
+#### Authorization Code Grant Authorization Error Response
+失敗時はリダイレクト可能な場合は、以下のパラメータを付与し、`redirect_uri`へユーザーエージェントをリダイレクトさせます。
 | Parameter Name    | Parameter Type   | Parameter Description                                                        |
 | ----------------- | ---------------- | ---------------------------------------------------------------------------- |
-| error             | String           | エラーコード                                                               |
+| error             | String           | エラーコード                                                                 |
 | error_description | String,undefined | 人間向けのエラーの詳細な情報                                                 |
 | state             | String,undefined | stateがAuthorization Requestの際に渡されていればその値がそのまま返却される。 |
+
+### Client Credentials Grant
+アプリケーションのリソースにアクセスする場合やすでに認可を得ているリソースへのアクセストークンを取得する場合に使用します。
+
+#### Client Credentials Grant Request
+Token Endpointへ認証情報を付加した上で以下のパラメータを付与し`POST`リクエストを行います。
+Content Typeは`application/x-www-form-urlencoded`を用いてください。  
+認証は`client_id`と`client_secret`を用いたBasic認証で行います。
+| Parameter Name | Parameter Type | Parameter Description                                                                 |
+| -------------- | -------------- | ------------------------------------------------------------------------------------- |
+| grant_type     | String         | `client_credentials`でなければならない。                                              |
+| scope          | String         | [Scopes](#scopes)の中からいくつかを選択しなければならない。値はスペースで区切られる。 |
+
+e.g.
+```http
+POST https://vcrypto.sumidora.com/oauth2/token
+User-Agent: vscode-restclient
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic MGU4YjlkNmYtNzUyYS00ZjVlLWFjNzItMzk4NmFlZmY4YWYwOnRVd1E2MGhuUW9XcUFBZExIX3VUR2l6X3B5dFE1b1o4d05NdnJfeTVLNGc=
+
+grant_type=client_credentials&scope=oauth2.register
+```
+
 
 ### OpenID Connect Dynamic Client Registration
 VirtualCryptoは[OpenID Connect Dynamic Client Registration](https://openid.net/specs/openid-connect-registration-1_0.html)を実装していますが、
@@ -116,12 +140,12 @@ e.g.
 ##### Client Registration Response
 成功した場合はステータスコード201で以下のパラメータを持つJSONが返却されます。
 
-| Parameter Name            | Parameter Type | Parameter Description                                             |
-| ------------------------- | -------------- | ----------------------------------------------------------------- |
-| client_id                 | String         | クライアントの識別子。UUID v4。                                   |
-| client_secret             | String         | 32byteの乱数をpaddingなしでbase64でエンコードしたもの。           |
-| registration_access_token | String         | kindが`app.user`で`oauth2.register`スコープを持ったトークン。     |
-| registration_client_uri   | String         | Client Configuration EndpointのURL。                              |
+| Parameter Name            | Parameter Type | Parameter Description                                                        |
+| ------------------------- | -------------- | ---------------------------------------------------------------------------- |
+| client_id                 | String         | クライアントの識別子。UUID v4。                                              |
+| client_secret             | String         | 32byteの乱数をpaddingなしでbase64でエンコードしたもの。                      |
+| registration_access_token | String         | kindが`app.user`で`oauth2.register`スコープを持ったトークン。                |
+| registration_client_uri   | String         | Client Configuration EndpointのURL。                                         |
 | client_secret_expires_at  | Number         | `client_secret` が期限切れになる日時(UNIX time)。期限切れにならないため`0`。 |
 
 e.g.
@@ -234,7 +258,7 @@ e.g.
 | client_id                          | String         | クライアントの識別子。UUID v4。                                                                                |
 | client_secret                      | String         | 32byteの乱数をpaddingなしでbase64でエンコードしたもの。                                                        |
 | client_secret_expires_at           | Number         | `client_secret` が期限切れになる時間。期限切れにならないため`0`。                                              |
-| grant_types                        | String[]       | 要素は`authorization_code`、`refresh_token`、`client_credentials`のいずれか(重複なし)|
+| grant_types                        | String[]       | 要素は`authorization_code`、`refresh_token`、`client_credentials`のいずれか(重複なし)                          |
 | application_type                   | String         | `native`、`web`から選択、デフォルトは`web`                                                                     |
 | response_types                     | String[]       | `code`のみサポート                                                                                             |
 | client_name                        | String,null    | アプリケーションの名前                                                                                         |
