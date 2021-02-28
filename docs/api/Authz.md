@@ -139,7 +139,7 @@ token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ2aXJ0dWFsQ3J5cHRvIiwiZXhwI
 ```
 ##### Token Revocation With Token Response
 常にステータスコード`200`が返却されます。
-レスポンスボディの内容は無視しなければなりません。
+レスポンスボディの内容は無視しなければなりません。  
 e.g.
 ```http
 HTTP/1.1 200 OK
@@ -166,7 +166,7 @@ jti=51b5c295-3624-4ef4-9e47-0dac6a9465f5&kind=user&typ=access
 ```
 ##### Token Revocation With Value Response
 常にステータスコード`200`が返却されます。
-レスポンスボディの内容は無視しなければなりません。
+レスポンスボディの内容は無視しなければなりません。  
 e.g.
 ```http
 HTTP/1.1 200 OK
