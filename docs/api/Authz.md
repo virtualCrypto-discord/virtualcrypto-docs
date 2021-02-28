@@ -93,7 +93,32 @@ Authorization: Basic MGU4YjlkNmYtNzUyYS00ZjVlLWFjNzItMzk4NmFlZmY4YWYwOnRVd1E2MGh
 
 grant_type=client_credentials&scope=oauth2.register
 ```
+#### Client Credentials Grant Response
+以下のパラメータを持つレスポンスが返却されます。
 
+| Parameter Name | Parameter Type | Parameter Description                                    |
+| -------------- | -------------- | -------------------------------------------------------- |
+| access_token   | String         | リクエストされたスコープがすべて含まれた`access_token`。 |
+| expires_in     | Number         | `access_token`の有効期限(秒単位。整数)。                 |
+| token_type     | String         | 常に`Bearer`。                                           |
+
+e.g.
+```http
+HTTP/1.1 200 OK
+content-type: application/json
+{
+  "access_token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ2aXJ0dWFsQ3J5cHRvIiwiZXhwIjoxNjE0NTA2Njg5LCJpYXQiOjE2MTQ1MDMwODksImlzcyI6InZpcnR1YWxDcnlwdG8iLCJqdGkiOiJlODhkOTY2YS1jZTE2LTQ5YTQtOTkzOS00NjdjMmMwMGVmODgiLCJraW5kIjoiYXBwIiwibmJmIjoxNjE0NTAzMDg4LCJzY29wZXMiOlsib2F1dGgyLnJlZ2lzdGVyIl0sInN1YiI6IjQiLCJ0eXAiOiJhY2Nlc3MifQ.sfMEnpfraOSzYPXshQkJV_5Y5a7-HmottDFWXAyVz1akMgdCdwG1M8VjZl3bjlsTof1ao4G6IwHdkkCjcpE3Ng",
+  "expires_in": 3600,
+  "token_type": "Bearer"
+}
+```
+
+#### Client Credentials Grant Error Response
+ステータスコード400番台で以下のパラメータを持つレスポンスが返却されます。
+
+| Parameter Name | Parameter Type | Parameter Description |
+| -------------- | -------------- | --------------------- |
+| error          | String         | エラーコード。        |
 
 ### OpenID Connect Dynamic Client Registration
 VirtualCryptoは[OpenID Connect Dynamic Client Registration](https://openid.net/specs/openid-connect-registration-1_0.html)を実装していますが、
