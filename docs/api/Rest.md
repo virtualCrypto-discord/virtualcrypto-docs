@@ -149,7 +149,7 @@ Queryに同じ。
 e.g.
 ```json
 [{
-  "amount": 100,
+  "amount": "100",
   "claimant": {
     "discord": {
       "avatar": "9940018bc861cf7a1ca308228d4a7be8",
