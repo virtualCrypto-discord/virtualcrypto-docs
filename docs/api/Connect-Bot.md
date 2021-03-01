@@ -1,0 +1,9 @@
+# 警告
+他人から渡されたトークンをDescriptionに書かないでください。
+あなたのBotにVirtualCrypto上のアプリケーションが紐付けられる恐れがあります。
+
+# VirtualCryptoのBotの検証
+1. VirtualCryptoはセッションに紐づく(セッションはdiscordのユーザーに紐付けられています)、トークンを発行します。
+2. VirtualCryptoは指定されたサーバーIDのIntegrationを取得します。
+3. 取得したIntegrationの中から指定されたIDのIntegrationを見つけます。
+4. 見つけたIntegrationのDescriptionにtokenが含まれていることを確認します。
