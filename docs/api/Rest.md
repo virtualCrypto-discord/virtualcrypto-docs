@@ -69,7 +69,7 @@ e.g.
   Host: vcrypto.sumidora.com
 ```
 #### Get Currency By Query Response
-通貨が見つかった場合、ステータスコード`200`で[Currency](#type-curreny)がレスポンスがとして返却されます(ただし、`total_amount`が必ず存在します)。
+通貨が見つかった場合、ステータスコード`200`で[Currency](#type-curreny)がレスポンスとして返却されます(ただし、`total_amount`が必ず存在します)。
 
 e.g.
 ```json
