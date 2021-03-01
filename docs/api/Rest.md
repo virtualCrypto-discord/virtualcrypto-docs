@@ -25,7 +25,7 @@ Beta期間中は破壊的な変更が予告なく行われる可能性があり�
 | discord        | DiscordUser,null,undefined | discord上でアカウントを持たないアプリケーションではnullまたはundefined |
 ### Type DiscordUser
 [DiscordのUser Structure](https://discord.com/developers/docs/resources/user#user-object)に従いますが、 `id`、`username`、`discriminator`、`avatar`、`bot`、`system`、`mfa_enabled`、`premium_type`、`public_flags`以外のフィールドが提供されることはありません。(セキュリティ上の理由で前述したフィールド以外のものを削除しています)
-### Type Curreny
+### Type Currency
 
 | Parameter Name |                  | Parameter Description                              |
 | -------------- | ---------------- | -------------------------------------------------- |
