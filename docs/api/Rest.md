@@ -200,11 +200,11 @@ e.g.
 ## Update Claim
 請求の承認や拒否とキャンセルが可能です。
 ### Update Claim Request
-以下のフィールドを持つJSONをBodyとして上記のURLへ`POST`リクエストを行ってください。
+以下のフィールドを持つJSONをBodyとして上記のURLへ`PATCH`リクエストを行ってください。
 
 | Parameter Name | Parameter Type | Parameter Description                                             |
 | -------------- | -------------- | ----------------------------------------------------------------- |
-| status         | String         | 請求の状態。`pending`、`approved`、`canceled`、`denied`のいずれか |
+| status         | String         | 請求の状態。`approved`、`canceled`、`denied`のいずれか |
 
 ### Update Claim Response
 
