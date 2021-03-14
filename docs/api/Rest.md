@@ -106,14 +106,14 @@ Queryに同じ。
 
 ---
 
-## User Transcations
+## User Transactions
 ユーザーの支払いについて扱います。  
 認証が必要です。
 ### Create User Transactions(Do Pay)
 `/users/@me/transactions`へ`POST`リクエストを行い、支払いを行います。
 
 #### Create User Transactions(Do Pay) Request
-以下のフィールドを持つJSONをBodyとして上記のURLへ`POST`リクエストを行ってください。
+以下のフィールドを持つオブジェクトまたはその配列をBodyとして上記のURLへ`POST`リクエストを行ってください。
 | Parameter Name      | Parameter Type | Parameter Description     |
 | ------------------- | -------------- | ------------------------- |
 | unit                | String         | 通貨単位                  |
