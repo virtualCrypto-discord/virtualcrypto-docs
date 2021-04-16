@@ -10,9 +10,10 @@
 ---
 
 ## Versions
-| Version | Path    | Status |
-| ------- | ------- | ------ |
-| v1      | /api/v1 | Beta   |
+| Version | Path    | Status       |
+| ------- | ------- | ------------ |
+| v1      | /api/v1 | beta         |
+| v2      | /api/v2 | developping  |
 
 Beta期間中は破壊的な変更が予告なく行われる可能性があります。
 
@@ -125,8 +126,17 @@ Queryに同じ。
 
 #### Create User Transactions(Do Pay) Error Response 
 ##### Create User Transactions(Do Pay) Error Response Not Enough Amount
-支払おうとしたときに通貨が不足していた場合ステータスコード`400`で以下のレスポンスが返却されます。
+支払おうとしたときに通貨が不足していた場合ステータスコード`409`で以下のレスポンスが返却されます。
+###### v2
+```json
+{
+  "error": "conflict",
+  "error_info": "not_enough_amount"
+}
+```
 
+###### v1
+支払おうとしたときに通貨が不足していた場合ステータスコード`400`で以下のレスポンスが返却されます。
 ```json
 {
   "error": "invalid_request",
@@ -189,12 +199,33 @@ e.g.
 請求idから請求を取得します。
 ### Get Cliam By Id Request
 `/users/@me/claims/:id`へ`GET`を行ってください。
+#### v1でのバグ
+v1ではここでidがギルドidとしてあやまって解釈されていました。
+v2では通貨のidとして解釈されます。
 
 #### Get Cliam By Id Response
 
 [Claim](#type-claim)が返却されます。
 
 #### Get Cliam By Id Error Response
+##### v2
+存在しないidを指定した場合`404`が返却されます。
+```json
+{
+  "error": "not_found",
+  "error_description": "not_found"
+}
+```
+閲覧権限がない場合は`403`が返却されます。
+
+```json
+{
+  "error": "forbidden",
+  "error_description": "invalid_operator"
+}
+```
+
+##### v1
 閲覧権限がない場合や存在しないidを指定した場合`404`が返却されます。
 
 ## Update Claim
@@ -211,9 +242,30 @@ e.g.
 更新後の[Claim](#type-claim)が返却されます。
 
 ### Update Claim Error Response
-すでに状態が`pending`以外に遷移している場合`404`が返却されます。
+
+#### v2
+すでに状態が`pending`以外に遷移している場合`409`が返却されます。
+
+```json
+{
+  "error": "conflict",
+  "error_info": "invalid_status"
+}
+```
+#### v1
+すでに状態が`pending`以外に遷移している場合`400`が返却されます。
+
 
 #### Update Claim Error Response Not Enough Amount
+##### v2
+承認しようとしたとき、通貨が不足していた場合、ステータスコード`409`で以下のレスポンスが返却されます。
+```json
+{
+  "error": "conflict",
+  "error_info": "not_enough_amount"
+}
+```
+##### v1
 承認しようとしたとき、通貨が不足していた場合、ステータスコード`400`で以下のレスポンスが返却されます。
 
 ```json
