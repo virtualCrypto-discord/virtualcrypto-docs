@@ -24,6 +24,7 @@ Beta期間中は破壊的な変更が予告なく行われる可能性があり�
 - CalimおよびPayでのエラーを適正に
 - /Currencies/:idのidの解釈を修正
 - 日付時刻(created_atおよびupdated_at)にタイムゾーンを追加(Zをつけただけ…)
+- /moneysの廃止
 ---
 ## Type Definitions
 ### Type User
