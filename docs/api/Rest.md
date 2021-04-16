@@ -74,7 +74,7 @@ Beta期間中は破壊的な変更が予告なく行われる可能性があり�
 
 e.g.
 ```http
-  GET /api/v1/currencies?unit=n HTTP/1.1
+  GET /api/v2/currencies?unit=n HTTP/1.1
   Accept: application/json
   Host: vcrypto.sumidora.com
 ```
@@ -101,10 +101,13 @@ e.g.
 ```
 ### Get Currency By Id
 `/currencies/:id`へ`GET`リクエストを行い通貨に関する情報を取得します。
+v1ではここでidがギルドidとしてあやまって解釈されていました。
+v2では通貨のidとして解釈されます。
+
 #### Get Currency By Id Request
 e.g.
 ```http
-  GET /api/v1/currencie/1 HTTP/1.1
+  GET /api/v2/currencie/1 HTTP/1.1
   Accept: application/json
   Host: vcrypto.sumidora.com
 ```
@@ -208,9 +211,6 @@ e.g.
 請求idから請求を取得します。
 ### Get Cliam By Id Request
 `/users/@me/claims/:id`へ`GET`を行ってください。
-#### v1でのバグ
-v1ではここでidがギルドidとしてあやまって解釈されていました。
-v2では通貨のidとして解釈されます。
 
 #### Get Cliam By Id Response
 
