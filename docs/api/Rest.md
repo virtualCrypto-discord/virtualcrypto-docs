@@ -21,8 +21,9 @@ Beta期間中は破壊的な変更が予告なく行われる可能性があり�
 
 ## Changes
 ### v2
+- [PR(#242)](https://github.com/virtualCrypto-discord/virtualCrypto2/pull/242)
 - CalimおよびPayでのエラーを適正に
-- /urrencies/:idのidの解釈を修正
+- /currencies/:idのidの解釈を修正
 - 日付時刻(created_atおよびupdated_at)にタイムゾーンを追加(Zをつけただけ…)
 - /moneysの廃止
 ---
