@@ -13,7 +13,7 @@
 | Version | Path    | Status       |
 | ------- | ------- | ------------ |
 | v1      | /api/v1 | beta         |
-| v2      | /api/v2 | developping  |
+| v2      | /api/v2 | developing  |
 
 Beta期間中は破壊的な変更が予告なく行われる可能性があります。
 
