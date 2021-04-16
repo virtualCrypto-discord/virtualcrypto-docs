@@ -18,6 +18,12 @@
 Beta期間中は破壊的な変更が予告なく行われる可能性があります。
 
 ---
+
+## Changes
+### v2
+- CalimおよびPayでのエラーを適正に
+- /Currencies/:idのidの解釈を修正
+---
 ## Type Definitions
 ### Type User
 | Parameter Name | Parameter Type             | Parameter Description                                                  |
