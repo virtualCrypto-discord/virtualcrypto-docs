@@ -10,10 +10,10 @@
 ---
 
 ## Versions
-| Version | Path    | Status       |
-| ------- | ------- | ------------ |
-| v1      | /api/v1 | beta         |
-| v2      | /api/v2 | developing  |
+| Version | Path    | Status     |
+| ------- | ------- | ---------- |
+| v1      | /api/v1 | beta       |
+| v2      | /api/v2 | developing |
 
 Beta期間中は破壊的な変更が予告なく行われる可能性があります。
 
@@ -124,6 +124,31 @@ Queryに同じ。
 認証が必要です。
 ### Create User Transactions(Do Pay)
 `/users/@me/transactions`へ`POST`リクエストを行い、支払いを行います。
+#### Create User Transactions(Do Pay) Idempotency
+また、リクエストを冪等にするため`v2`以降、Idempotency-Key HTTP Headerをサポートしています。 
+
+名前空間はJWTのissごとです。
+
+`Idempotency-Key`は次に示す規則に一致しなければなりません。(参考: [The Idempotency HTTP Header Field draft-idempotency-header-01](https://tools.ietf.org/html/draft-idempotency-header-01#section-2.1))
+```abnf
+Idempotency-Key       = idempotency-key-value
+idempotency-key-value = opaque-value
+opaque-value          = DQUOTE *idempotencyvalue DQUOTE
+idempotencyvalue      = %x21 / %x23-7E / obs-text
+      ; VCHAR except double quotes, plus obs-text
+```
+加えて、`opaque-value`は`"`を除いて0文字以上256文字以下である必要があります。
+
+レスポンスには`Idempotency-Status`ヘッダが含まれます。  
+これは、[Idempotency | Worldpay Developers](https://developer.worldpay.com/docs/wpg/idempotency)の影響を受けていますが、細部が異なります。
+`Idempotency-Status`で`Invalid Key`が通知されることはありません。
+
+リクエストの処理が完了する前に同一ユーザー、同一`Idempotency-Key`のリクエストが行われた場合、ステータスコード`409`で以下のレスポンスが返却されます。
+```json
+{
+  "error": "processing"
+}
+```
 
 #### Create User Transactions(Do Pay) Request
 以下のフィールドを持つオブジェクトまたはその配列をBodyとして上記のURLへ`POST`リクエストを行ってください。
@@ -242,8 +267,8 @@ e.g.
 ### Update Claim Request
 以下のフィールドを持つJSONをBodyとして上記のURLへ`PATCH`リクエストを行ってください。
 
-| Parameter Name | Parameter Type | Parameter Description                                             |
-| -------------- | -------------- | ----------------------------------------------------------------- |
+| Parameter Name | Parameter Type | Parameter Description                                  |
+| -------------- | -------------- | ------------------------------------------------------ |
 | status         | String         | 請求の状態。`approved`、`canceled`、`denied`のいずれか |
 
 ### Update Claim Response
