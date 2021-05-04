@@ -22,7 +22,7 @@ Beta期間中は破壊的な変更が予告なく行われる可能性があり�
 ## Changes
 ### v2
 - [PR(#242)](https://github.com/virtualCrypto-discord/virtualCrypto2/pull/242)
-- CalimおよびPayでのエラーを適正に
+- ClaimおよびPayでのエラーを適正に
 - /currencies/:idのidの解釈を修正
 - 日付時刻(created_atおよびupdated_at)にタイムゾーンを追加(Zをつけただけ…)
 - /moneysの廃止
@@ -79,7 +79,7 @@ e.g.
   Host: vcrypto.sumidora.com
 ```
 #### Get Currency By Query Response
-通貨が見つかった場合、ステータスコード`200`で[Currency](#type-curreny)がレスポンスとして返却されます(ただし、`total_amount`が必ず存在します)。
+通貨が見つかった場合、ステータスコード`200`で[Currency](#type-currency)がレスポンスとして返却されます(ただし、`total_amount`が必ず存在します)。
 
 e.g.
 ```json
@@ -107,7 +107,7 @@ v2では通貨のidとして解釈されます。
 #### Get Currency By Id Request
 e.g.
 ```http
-  GET /api/v2/currencie/1 HTTP/1.1
+  GET /api/v2/currencies/1 HTTP/1.1
   Accept: application/json
   Host: vcrypto.sumidora.com
 ```
@@ -207,16 +207,16 @@ e.g.
 ]
 ```
 
-### Get Cliam By Id
+### Get Claim By Id
 請求idから請求を取得します。
-### Get Cliam By Id Request
+### Get Claim By Id Request
 `/users/@me/claims/:id`へ`GET`を行ってください。
 
-#### Get Cliam By Id Response
+#### Get Claim By Id Response
 
 [Claim](#type-claim)が返却されます。
 
-#### Get Cliam By Id Error Response
+#### Get Claim By Id Error Response
 ##### v2
 存在しないidを指定した場合`404`が返却されます。
 ```json
