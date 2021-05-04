@@ -150,6 +150,8 @@ idempotencyvalue      = %x21 / %x23-7E / obs-text
 }
 ```
 
+`Idempotency-Key`は最低7日間保持されます(それ以上保持されることもありえます)。
+
 #### Create User Transactions(Do Pay) Request
 以下のフィールドを持つオブジェクトまたはその配列をBodyとして上記のURLへ`POST`リクエストを行ってください。
 | Parameter Name      | Parameter Type | Parameter Description     |
