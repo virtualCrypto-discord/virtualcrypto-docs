@@ -47,9 +47,47 @@
 
 自分が所持している通貨を表示します。
 
-## /claim list
+## /claim list \<pending\> \<approved\> \<denied\> \<denied\> \<canceled\> \<user\>
 
 自分に関係する請求の一覧を表示します。
+状態でフィルターを掛けない場合`pending`な請求のみが表示されます。
+状態でフィルターを掛けると`pending`はデフォルトでは`false`となります。
+
+パラメータ:
+
+- pending 未処理の請求を表示します。
+- approved 承認済みの請求を表示します。
+- denied 拒否した/されたの請求を表示します。
+- canceled キャンセルした/された請求を表示します。
+- user あるユーザーに関連する請求のみを表示します。
+
+## /claim received \<pending\> \<approved\> \<denied\> \<denied\> \<canceled\> \<user\>
+
+自分の受け取った請求の一覧を表示します。
+状態でフィルターを掛けない場合`pending`な請求のみが表示されます。
+状態でフィルターを掛けると`pending`はデフォルトでは`false`となります。
+
+パラメータ:
+
+- pending 未処理の請求を表示します。
+- approved 承認済みの請求を表示します。
+- denied 拒否した請求を表示します。
+- canceled キャンセルされた請求のみを表示します。
+- user ある請求元のユーザーを指定し、そのユーザーからの請求のみを表示します。
+
+## /claim list \<pending\> \<approved\> \<denied\> \<denied\> \<canceled\> \<user\>
+
+自分の送った請求の一覧を表示します。
+状態でフィルターを掛けない場合`pending`な請求のみが表示されます。
+状態でフィルターを掛けると`pending`はデフォルトでは`false`となります。
+
+パラメータ:
+
+- pending 未処理の請求を表示します。
+- approved 承認済みの請求を表示します。
+- denied 拒否されたの請求を表示します。
+- canceled キャンセルした請求を表示します。
+- user ある請求先のユーザーを指定し、そのユーザーへの請求のみを表示します。
 
 ## /claim make \[user\] \[unit\] \[amount\]
 
