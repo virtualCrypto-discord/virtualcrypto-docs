@@ -189,9 +189,33 @@ idempotencyvalue      = %x21 / %x23-7E / obs-text
 請求の作成、確認、承認や拒否、キャンセルが可能です。
 
 ### List Claims
-現在アクティブ(`status`が`pending`)な請求の一覧を取得します。
+請求の一覧を取得します。
 #### List Claims Request
 `/users/@me/claims` へ`GET`を行ってください。
+| Parameter Name          | Parameter Type | Parameter Description                                                                                                                 |
+| ----------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| statuses                | String[]?      | 請求の状態(`pending`、`canceled`、`approved`、`denied`のいずれか)。デフォルトは`pending`。                                            |
+| related_discord_user_id | String?        | 相手方のdiscordにおけるid(`related_vc_user_id`と排他)。指定されなかった場合すべてのユーザーが対象。                                   |
+| related_vc_user_id      | String?        | 相手方のVirtualCryptoにおけるid(`related_discord_user_id`と排他)。指定されなかった場合すべてのユーザーが対象。                        |
+| type                    | String?        | 請求の種類(`claimed`、`received`、`all`)デフォルトは`all`。                                                                           |
+| limit                   | Number?        | 返却する請求の個数の上限。デフォルトは無制限ですがこの挙動に依存しないでください。                                                    |
+| next                    | String?        | ページネーション用のパラメータ。このパラメータは開区間(区切りを含まない)。`on_next`と排他。どちらも指定されない場合先頭を取得します。 |
+| on_next                 | String?        | ページネーション用のパラメータ。このパラメータは閉区間(区切りを含む)。`next`と排他。どちらも指定されない場合先頭を取得します。        |
+| order                   | String?        | 請求の順序(`asc_claim_id`、`desc_claim_id`)。デフォルトは`desc_claim_id`。                                                            |
+
+##### List Claims Request URL Examples
+- `/users/@me/claims?statuses[]=pending&statuses[]=approved&statuses[]=canceled&statuses[]=denied&limit=10&next=87`
+- `/users/@me/claims?statuses[]=pending&statuses[]=approved&statuses[]=canceled&statuses[]=denied&limit=10&on_next=87`
+- `/users/@me/claims?statuses[]=pending&statuses[]=approved&statuses[]=canceled&statuses[]=denied&order=asc_claim_id&limit=10&next=87`
+- `/users/@me/claims?statuses[]=pending&statuses[]=approved&statuses[]=canceled&statuses[]=denied&order=asc_claim_id&limit=10&related_discord_user_id=408939071289688064`
+- `/users/@me/claims?statuses[]=pending&statuses[]=approved&statuses[]=canceled&statuses[]=denied&order=asc_claim_id&limit=10&related_discord_user_id=408939071289688064&type=claimed`
+
+##### next、on_nextの値について
+next、on_nextの値は以下の表に従います。
+| order                           | value |
+| ------------------------------- | ----- |
+| `asc_claim_id`、`desc_claim_id` | `id`  |
+
 #### List Claims Response
 [Claim](#type-claim)の配列が返却されます。
 
@@ -233,6 +257,11 @@ e.g.
 ...
 ]
 ```
+##### List Claims Response Link Header
+```http
+link: <https://localhost:4000/api/v2/users/@me/claims?type=claimed&order=asc_claim_id&next=10&limit=10&related_discord_user_id=408939071289688064&statuses%5B%5D=pending&statuses%5B%5D=approved&statuses%5B%5D=canceled&statuses%5B%5D=denied>; rel="next"
+```
+以上のような`Link` Headerを返却します。この場合<>のURLにアクセスすることで次ページを取得することができます。なお、必ず次ページがあることを保証しません。空の配列が返却される場合があります。
 
 ### Get Claim By Id
 請求idから請求を取得します。
