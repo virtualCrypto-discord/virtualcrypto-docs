@@ -293,6 +293,26 @@ link: <https://localhost:4000/api/v2/users/@me/claims?type=claimed&order=asc_cla
 ##### v1
 閲覧権限がない場合や存在しないidを指定した場合`404`が返却されます。
 
+
+## Create Claim
+請求の作成が可能です。
+
+### Create Claim Request
+以下のフィールドを持つJSONをBodyとして上記のURLへ`POST`リクエストを行ってください。
+
+| Parameter Name   | Parameter Type | Parameter Description        |
+| ---------------- | -------------- | ---------------------------- |
+| payer_discord_id | String         | 請求先のユーザーのdiscordのid |
+| unit             | String         | 請求する通貨の`unit`          |
+| amount           | String         | 請求額                       |
+
+### Create Claim Response
+
+作成後の[Claim](#type-claim)がステータスコード`201`で返却されます。
+
+### Create Claim Error Response
+不正な入力以外の要因で失敗しません。
+
 ## Update Claim
 請求の承認や拒否とキャンセルが可能です。
 ### Update Claim Request
