@@ -46,16 +46,19 @@ Beta期間中は破壊的な変更が予告なく行われる可能性があり�
 | total_amount   | String,undefined | 通貨流通量(全ユーザーの所有量を足し合わせたもの)。 |
 
 ### Type Claim
-| Parameter Name | Parameter Type | Parameter Description                                             |
-| -------------- | -------------- | ----------------------------------------------------------------- |
-| id             | String         | 請求id                                                            |
-| amount         | String         | 請求額                                                            |
-| claimant       | User           | 請求者                                                            |
-| payer          | User           | 被請求者                                                          |
-| currency       | Currency       | 請求されている通貨。`total_amount`フィールドは存在しない。        |
-| status         | String         | 請求の状態。`pending`、`approved`、`canceled`、`denied`のいずれか |
-| created_at     | String         | 請求作成日                                                        |
-| updated_at     | String         | 請求更新日                                                        |
+| Parameter Name | Parameter Type | Parameter Description                                                                                                                                                   |
+| -------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id             | String         | 請求id                                                                                                                                                                  |
+| amount         | String         | 請求額                                                                                                                                                                  |
+| claimant       | User           | 請求者                                                                                                                                                                  |
+| payer          | User           | 被請求者                                                                                                                                                                |
+| currency       | Currency       | 請求されている通貨。`total_amount`フィールドは存在しない。                                                                                                              |
+| status         | String         | 請求の状態。`pending`、`approved`、`canceled`、`denied`のいずれか                                                                                                       |
+| metadata       | Object         | 40文字(コードポイント)以下の任意のキー、値として、500文字以下の文字列を持つ大きさ50以下のObject。これは関連するユーザーごとにプライベートであり、他者に公開されません。 |
+| created_at     | String         | 請求作成日                                                                                                                                                              |
+| updated_at     | String         | 請求更新日                                                                                                                                                              |
+
+
 
 ---
 ## Currencies
@@ -251,6 +254,9 @@ e.g.
     },
     "id": "1"
   },
+  "metadata": {
+    "X" => "y"
+  },
   "status": "pending",
   "updated_at": "2021-02-07T05:46:15Z"
 },
@@ -300,12 +306,12 @@ link: <https://localhost:4000/api/v2/users/@me/claims?type=claimed&order=asc_cla
 ### Create Claim Request
 以下のフィールドを持つJSONをBodyとして上記のURLへ`POST`リクエストを行ってください。
 
-| Parameter Name   | Parameter Type | Parameter Description        |
-| ---------------- | -------------- | ---------------------------- |
-| payer_discord_id | String         | 請求先のユーザーのdiscordのid |
-| unit             | String         | 請求する通貨の`unit`          |
-| amount           | String         | 請求額                       |
-
+| Parameter Name   | Parameter Type        | Parameter Description                             |
+| ---------------- | --------------------- | ------------------------------------------------- |
+| payer_discord_id | String                | 請求先のユーザーのdiscordのid                     |
+| unit             | String                | 請求する通貨の`unit`                              |
+| amount           | String                | 請求額                                            |
+| metadata         | Object,null,undefined | メタデータ。nullとundefinedは同じ挙動を示します。 |
 ### Create Claim Response
 
 作成後の[Claim](#type-claim)がステータスコード`201`で返却されます。
@@ -318,9 +324,10 @@ link: <https://localhost:4000/api/v2/users/@me/claims?type=claimed&order=asc_cla
 ### Update Claim Request
 以下のフィールドを持つJSONをBodyとして上記のURLへ`PATCH`リクエストを行ってください。
 
-| Parameter Name | Parameter Type | Parameter Description                                  |
-| -------------- | -------------- | ------------------------------------------------------ |
-| status         | String         | 請求の状態。`approved`、`canceled`、`denied`のいずれか |
+| Parameter Name | Parameter Type        | Parameter Description                                                                                                                                                                 |
+| -------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| status         | String,undefined      | 請求の状態。`approved`、`canceled`、`denied`のいずれか                                                                                                                                |
+| metadata       | Object,null,undefined | メタデータ。nullとundefinedは異なる挙動を示します。nullが指定された場合、請求に紐づくメタデータがすべて削除されます。また、値にnullを指定することでそのキーに紐づく値を削除できます。 |
 
 ### Update Claim Response
 
