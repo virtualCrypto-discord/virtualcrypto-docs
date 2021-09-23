@@ -28,7 +28,7 @@ Refresh TokenはトークンエンドポイントにてAccess Tokenと引き換�
 
 ## OAuth2/OpenID Connect
 [OAuth2](https://tools.ietf.org/html/rfc6749)([和訳](https://openid-foundation-japan.github.io/rfc6749.ja.html))/[OpenID Connect](https://openid.net/specs/openid-connect-core-1_0.html)([和訳](https://openid-foundation-japan.github.io/openid-connect-core-1_0.ja.html))は認可/認証に関わる、現在、広範に用いられる標準仕様の一つです。
-VirtualCyprtoではAuthorization Code GrantとClient Credentials Grantのみをサポートしています。
+VirtualCryptoではAuthorization Code GrantとClient Credentials Grantのみをサポートしています。
 
 ### URLs
 | Title                         | URL                  | Related Specification                                                                    |
@@ -198,6 +198,7 @@ Parameterは以下のテーブルに示すとおりです。
 | logo_uri                           | String,null,undefined | アプリケーションのロゴへのURL(ただし、`https`スキームまたは`data`スキームのうちmimeが画像のもののみサポート)   |
 | client_uri                         | String,null,undefined | アプリケーションのウェブサイトへのURL(`http`スキームまたは`https`スキームのもののみサポート)                   |
 | discord_support_server_invite_slug | String,null,undefined | `https://discord.gg/<invite_slug>`                                                                             |
+| webhook_url                        | String,null,undefined | Webhookの受け取りに使用するエンドポイント                                                                      |
 
 e.g.
 ```http
@@ -214,7 +215,8 @@ e.g.
       "https://client.example.org/callback2"],
    "client_name": "My Example",
    "logo_uri": "https://client.example.org/logo.png",
-   "discord_support_server_invite_slug": "pcr5GRvQ"
+   "discord_support_server_invite_slug": "pcr5GRvQ",
+   "webhook_url": "https://example.com/webhook"
   }
 ```
 
@@ -281,6 +283,7 @@ Bodyには以下のパラメータを持つJSONを指定してください。
 | logo_uri                           | String,null,undefined | アプリケーションのロゴへのURL(ただし、`https`スキームまたは`data`スキームのうちmimeが画像のもののみサポート)   |
 | client_uri                         | String,null,undefined | アプリケーションのウェブサイトへのURL(`http`スキームまたは`https`スキームのもののみサポート)                   |
 | discord_support_server_invite_slug | String,null,undefined | `https://discord.gg/<invite_slug>`                                                                             |
+| webhook_url                        | String,null,undefined | Webhookの受け取りに使用するエンドポイント                                                                      |
 
 e.g.
 ```http
@@ -349,6 +352,7 @@ e.g.
 | discord_user_id                    | String,null    | アプリケーションのdiscordにおけるid                                                                            |
 | owner_discord_id                   | String         | アプリケーションのownerのdiscordにおけるid                                                                     |
 | user_id                            | String         | VirtualCryptoにおけるアプリケーションのユーザーのid                                                            |
+| webhook_url                        | String,null    | Webhookの受け取りに使用するエンドポイント                                                                      |
 
 e.g.
 ```http
