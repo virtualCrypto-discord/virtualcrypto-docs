@@ -3,6 +3,7 @@
 現在、次のイベントの通知が可能です。
 - 請求が承認された。
 - 請求が拒否された。
+
 [Discordと同様](https://discord.com/developers/docs/interactions/receiving-and-responding#security-and-authorization)に、TimestampとBodyをバイナリとして結合したものにed25519を用いて署名します。
 アプリケーションはこれを検証する必要があります。
 アプリケーションがこれを検証しているか、VirtualCryptoは登録時に検証し、また、定期的に検証します。
