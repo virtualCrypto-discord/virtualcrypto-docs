@@ -255,7 +255,7 @@ e.g.
     "id": "1"
   },
   "metadata": {
-    "X" => "y"
+    "X": "y"
   },
   "status": "pending",
   "updated_at": "2021-02-07T05:46:15Z"
